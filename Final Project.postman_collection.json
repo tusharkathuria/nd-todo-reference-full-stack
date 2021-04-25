@@ -1,0 +1,210 @@
+{
+	"info": {
+		"_postman_id": "2a0710a5-4705-20ff-45f4-affc86d3d4f4",
+		"name": "TODO App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "GET /todos",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/todos/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"todos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "POST /todos",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var body = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable('todoId', body._id);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"Second\",\n    \"dueDate\": \"2021-04-24T09:14:37+05:30\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/todos/",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"todos",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET /todos/:id",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"url": {
+					"raw": "{{url}}/todos/{{todoId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"todos",
+						"{{todoId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE /todos/:id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var token = postman.getResponseHeader('x-auth');",
+							"postman.setEnvironmentVariable('x-auth', token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"text\": \"CheckLocal\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}/todos/{{todoId}}",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"todos",
+						"{{todoId}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH /todos/:id",
+			"request": {
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					},
+					{
+						"key": "Authorization",
+						"value": "Bearer {{token}}"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\" : \"changed\",\n    \"dueDate\": \"2021-04-24T09:21:01.016Z\",\n\t\"done\" : true\n}"
+				},
+				"url": {
+					"raw": "{{url}}/todos/aa52941f-f0ab-4ff1-a070-80e1830d30d3",
+					"host": [
+						"{{url}}"
+					],
+					"path": [
+						"todos",
+						"aa52941f-f0ab-4ff1-a070-80e1830d30d3"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6ImhYMGIxNHRzTlZ5d1htVzM2a085diJ9.eyJpc3MiOiJodHRwczovL2Rldi1ycjZ3dG5ncS51cy5hdXRoMC5jb20vIiwic3ViIjoiZ29vZ2xlLW9hdXRoMnwxMDgzMDUwMzM1Nzc1NTkxNjMwMjUiLCJhdWQiOiJUYTNvMjVMT1ZvUG80NnpNYVBtZzRNME5OMk5Nc0VsRCIsImlhdCI6MTYxOTI1NjQ2OCwiZXhwIjoxNjE5MjkyNDY4LCJhdF9oYXNoIjoick5OQ2JibnZHbHhTWVFsT0V1bEthdyIsIm5vbmNlIjoiYXBwT01PRUdOUEVlbEloRDlieGk0X3hYQkhzMzB0M1MifQ.mSOLVAygWF9hiWGkhggfTr8xYUc9-z8MzxE7WeP-8t72DIgLwy8Ero1FDhm7dnQ7DcYMekG00M4vOcPs0wQA-QGWRRMCsbGJWH1hfBP668CduUbrdZnoCOM0E1xkOQtPWwnmjiiHAllH9ug6L9omMJDv9iTagBkuJHoH5UbJlrIM6boXs5_7nrFRM0SnSmwp_VWeAZ2QRA23nRFAQ-PBGHkh32x2E_NW-omC8g4CWnUj73Tv7BLTt5KD_2i1PQUMBlKRe0wDVTkOiNO-6VUVCztA8exb4xKQDpYRKOdWHNSh7tUHlqg-oiiQbLPC_0eTl-dnnqEI8RLq914I2riAgQ"
+		},
+		{
+			"key": "url",
+			"value": "https://ytxtd7q89l.execute-api.ap-south-1.amazonaws.com/dev/"
+		}
+	]
+}
