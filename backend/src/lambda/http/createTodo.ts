@@ -11,8 +11,18 @@ const logger = createLogger('createTodoLambda');
 
 const createTodoHandler = async (event): Promise<APIGatewayProxyResult> => {
   logger.info(`Processing event: ${event}`)
-  
+
   const newTodo: CreateTodoRequest = event.body
+
+  if([newTodo.name, newTodo.dueDate].includes("")) {
+    logger.error("Request body has empty name or due date")
+
+    return {
+      statusCode: 400,
+      body: JSON.stringify({ message: "Request body has empty name or due date" })
+    }
+  }
+
   const userId = getUserId(event)
   const newItem = await createTodo(newTodo, userId)
 
